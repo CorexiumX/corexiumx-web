@@ -39,3 +39,7 @@ footer { display: flex; justify-content: space-between; align-items: center; gap
 footer .brand { gap: 0; font-size: 18px; }
 @media (max-width: 850px) { .site-header { flex-wrap: wrap; gap: 12px 24px; padding-block: 16px; } nav { order: 3; width: 100%; margin-left: 0; } .theme-picker { margin-left: auto; } .hero { gap: 24px; padding-block: 48px; } .project-status { gap: 32px; } }
 @media (max-width: 640px) { .site-header, main, footer { width: calc(100% - 32px); } .hero, .project-status { grid-template-columns: 1fr; } .hero { padding-block: 40px; } .brand-art { max-width: 420px; width: 100%; margin-inline: auto; } .feature-list li { grid-template-columns: 24px 1fr; gap: 12px; } .status { grid-column: 2; justify-self: start; } .direction, .project-status { padding-block: 40px; } footer { flex-wrap: wrap; } }
+@media (forced-colors: active) {
+  .brand-art { background: Canvas; }
+  .brand-art figcaption { color: CanvasText; }
+}

@@ -14,3 +14,17 @@ p { line-height: 1.7; }
 .skip-link { position: fixed; top: 8px; left: 16px; padding: 12px; background: var(--cx-surface); z-index: 10; transform: translateY(-180%); }
 .skip-link:focus { transform: translateY(0); }
 @media (forced-colors: active) { .button, .status, select { border: 1px solid ButtonText; } }
+@media (forced-colors: active) {
+  :root {
+    --cx-canvas: Canvas;
+    --cx-surface: Canvas;
+    --cx-text: CanvasText;
+    --cx-muted: CanvasText;
+    --cx-accent: LinkText;
+    --cx-onAccent: Canvas;
+    --cx-border: CanvasText;
+    --cx-focus: Highlight;
+    --cx-danger: CanvasText;
+  }
+  .button { color: LinkText; background: Canvas; border-color: LinkText; }
+}
