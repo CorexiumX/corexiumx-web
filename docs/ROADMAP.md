@@ -1,6 +1,6 @@
 # Website: repository roadmap
 
-The branded responsive preview, theme selector and pinned asset verification are implemented. The stages below describe the broader website program; release ingestion and publication remain planned. Consult VALIDATION.md for current evidence.
+The branded responsive preview, theme selector, pinned asset verification, GitHub Actions QA workflow and automated Chromium/accessibility suite are implemented. The stages below describe the broader website program; release ingestion and publication remain planned. Consult VALIDATION.md for current evidence.
 
 | Stage | Deliverable | Exit evidence |
 | --- | --- | --- |

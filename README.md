@@ -11,7 +11,7 @@ pnpm build
 pnpm preview
 ```
 
-The build verifies vendored design assets, checks TypeScript and creates static output in `dist/`. No sibling repository is required to build. Node 22.12+ and pnpm are recommended for the current toolchain.
+The build verifies vendored design assets, checks TypeScript and creates static output in `dist/`. No sibling repository is required to build. Use Node 24 (CI target) or Node 22.12+ with the pinned pnpm 12.10.1 toolchain.
 
 ## Design integration
 
@@ -22,3 +22,18 @@ To update: build and QA the selected corexiumx-design revision, verify its `dist
 Content sources are the sibling design repository's `patterns/browser-interactions.md` and the ecosystem `corexiumx-docs/product/FEATURE_CATALOG.md`. This page makes no shipped browser or performance claims. Original and generated artwork provenance is maintained in corexiumx-design; distribution rights and native icon qualification remain maintainer gates.
 
 See [validation](docs/VALIDATION.md) for checked behavior and limits.
+
+## Automated QA
+
+```sh
+pnpm exec playwright install chromium
+pnpm qa
+```
+
+`qa` builds the production website before running the browser suite. `pnpm test:e2e` runs tests against an existing build; `pnpm test:a11y` runs only the accessibility file. Both start an isolated Vite production preview on port 4173 and stop it afterward. Free that port before running. Use `pnpm test:report` to open the HTML report.
+
+The suite covers desktop and mobile-sized Chromium, theme colors and reload behavior, artwork/favicon loading, fragment navigation, keyboard skip link/focus, development status, and widths of 320, 390 and 768 pixels. Axe scans all three themes for automatically detectable WCAG A/AA and best-practice violations; additional checks emulate reduced motion and forced colors. Reports include axe JSON results, and failures retain screenshots and traces in ignored output folders.
+
+`.github/workflows/web-qa.yml` runs on pushes, pull requests and manual dispatch. It installs locked dependencies and Chromium with OS dependencies, verifies design assets, builds, then runs the suite. Reports and successful builds are retained for 14 days. No deployment or write access is configured. The remote workflow must run after push before treating Linux CI as verified.
+
+Automated checks are a regression gate, not complete accessibility certification. Manual screen-reader, zoom, native platform and additional browser-engine review remains necessary. Setup follows the official [Playwright CI](https://playwright.dev/docs/ci-intro) and [axe integration](https://playwright.dev/docs/accessibility-testing) guides.
