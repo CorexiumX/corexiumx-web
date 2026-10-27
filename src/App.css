@@ -1,0 +1,41 @@
+.site-header, main, footer { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
+.site-header { display: flex; align-items: center; gap: 32px; min-height: 104px; border-bottom: 1px solid var(--cx-border); }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--cx-text); text-decoration: none; font-size: 23px; font-weight: 750; min-height: 44px; }
+.brand img { border-radius: 8px; }
+nav { display: flex; gap: 24px; margin-left: auto; }
+nav a, footer a { display: inline-flex; align-items: center; min-height: 44px; }
+nav a { color: var(--cx-text); font-size: 14px; text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+.theme-picker { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--cx-muted); }
+select { min-height: 44px; padding: 8px; border: 1px solid var(--cx-border); border-radius: 8px; background: var(--cx-surface); color: var(--cx-text); }
+.hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; padding-block: 80px; }
+.eyebrow { font-size: 12px; letter-spacing: .16em; font-weight: 700; color: var(--cx-accent); margin-bottom: 20px; }
+h1 { font-size: clamp(44px, 5.5vw, 76px); line-height: 1.05; letter-spacing: -.05em; font-weight: 650; }
+.intro { color: var(--cx-muted); max-width: 490px; margin-top: 28px; font-size: 18px; }
+.hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 32px; }
+.hero-actions a { display: inline-flex; align-items: center; min-height: 48px; font-size: 14px; }
+.button { gap: 20px; padding: 14px 20px; border-radius: 8px; text-decoration: none; background: var(--cx-accent); color: var(--cx-onAccent); font-weight: 700; transition: transform var(--cx-motion); }
+.button:hover { transform: translateY(-2px); }
+.release-note { margin-top: 24px; font-size: 13px; color: var(--cx-muted); }
+.brand-art { overflow: hidden; border-radius: 16px; background: #030b18; }
+.brand-art img { display: block; width: 100%; height: auto; }
+.brand-art figcaption { color: #b3c4d9; padding: 0 24px 24px; text-align: center; font-size: 13px; }
+.direction { border-top: 1px solid var(--cx-border); padding-block: 64px; }
+.section-heading { max-width: 600px; }
+h2 { font-size: clamp(30px, 3.5vw, 44px); line-height: 1.15; letter-spacing: -.035em; font-weight: 600; }
+.section-heading > p:last-child { color: var(--cx-muted); margin-top: 16px; }
+.feature-list { list-style: none; padding: 0; margin: 40px 0 0; }
+.feature-list li { display: grid; grid-template-columns: 48px 1fr auto; gap: 24px; padding: 28px 0; border-top: 1px solid var(--cx-border); align-items: start; }
+.feature-number { color: var(--cx-accent); font-size: 13px; padding-top: 5px; }
+h3 { font-size: 21px; font-weight: 600; }
+.feature-list p { color: var(--cx-muted); margin-top: 8px; }
+.status { font-size: 12px; border: 1px solid var(--cx-border); color: var(--cx-muted); padding: 6px 12px; border-radius: 24px; }
+.project-status { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; border-top: 1px solid var(--cx-border); padding-block: 64px; }
+.project-status > div > p:not(.eyebrow) { color: var(--cx-muted); }
+dl { margin-top: 24px; }
+dl > div { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--cx-border); font-size: 14px; }
+dd { margin: 0; color: var(--cx-accent); }
+footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid var(--cx-border); padding-block: 24px; font-size: 13px; color: var(--cx-muted); }
+footer .brand { gap: 0; font-size: 18px; }
+@media (max-width: 850px) { .site-header { flex-wrap: wrap; gap: 12px 24px; padding-block: 16px; } nav { order: 3; width: 100%; margin-left: 0; } .theme-picker { margin-left: auto; } .hero { gap: 24px; padding-block: 48px; } .project-status { gap: 32px; } }
+@media (max-width: 640px) { .site-header, main, footer { width: calc(100% - 32px); } .hero, .project-status { grid-template-columns: 1fr; } .hero { padding-block: 40px; } .brand-art { max-width: 420px; width: 100%; margin-inline: auto; } .feature-list li { grid-template-columns: 24px 1fr; gap: 12px; } .status { grid-column: 2; justify-self: start; } .direction, .project-status { padding-block: 40px; } footer { flex-wrap: wrap; } }
