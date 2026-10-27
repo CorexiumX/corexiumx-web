@@ -25,3 +25,6 @@ dist-ssr
 .context-pilot/
 
 docs/preview.jpg
+
+playwright-report/
+test-results/

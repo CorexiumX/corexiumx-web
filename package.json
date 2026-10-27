@@ -8,14 +8,20 @@
     "build": "node scripts/verify-design.mjs && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "verify-design": "node scripts/verify-design.mjs"
+    "verify-design": "node scripts/verify-design.mjs",
+    "test:e2e": "playwright test",
+    "test:a11y": "playwright test accessibility.spec.ts",
+    "test:report": "playwright show-report",
+    "qa": "pnpm build && pnpm test:e2e"
   },
   "dependencies": {
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@babel/core": "^7.29.7",
+    "@playwright/test": "^1.64.1",
     "@rolldown/plugin-babel": "^0.2.4",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^24.19.2",
@@ -26,5 +32,9 @@
     "oxlint": "^1.88.0",
     "typescript": "~6.0.3",
     "vite": "^8.3.4"
+  },
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
