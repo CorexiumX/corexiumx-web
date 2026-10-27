@@ -1,0 +1,53 @@
+name: Web QA
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-qa-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-build-test:
+    name: Assets, production build, browser and accessibility tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: pnpm
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify design assets and build production website
+        run: pnpm build
+      - name: Install Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run browser and accessibility checks against the production build
+        run: pnpm test:e2e
+      - name: Save test report, axe results and failure traces
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-qa-results
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Save verified production build
+        uses: actions/upload-artifact@v4
+        with:
+          name: corexiumx-web-dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
