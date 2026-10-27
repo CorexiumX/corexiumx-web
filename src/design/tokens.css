@@ -1,0 +1,8 @@
+/* CorexiumX tokens v1.0.0; dimensions use CSS pixels. */
+:root, [data-theme="dark"] {--cx-canvas:#030B18;--cx-surface:#101F33;--cx-text:#F2F7FF;--cx-muted:#B3C4D9;--cx-accent:#00DEEF;--cx-onAccent:#03121F;--cx-border:#758BA6;--cx-focus:#70EFFF;--cx-danger:#FFB4AB;}
+[data-theme="light"] {--cx-canvas:#F5F9FF;--cx-surface:#FFFFFF;--cx-text:#102138;--cx-muted:#435871;--cx-accent:#005BB8;--cx-onAccent:#FFFFFF;--cx-border:#687D95;--cx-focus:#005BB8;--cx-danger:#AD2020;}
+[data-theme="high-contrast"] {--cx-canvas:#000000;--cx-surface:#000000;--cx-text:#FFFFFF;--cx-muted:#FFFFFF;--cx-accent:#00FFFF;--cx-onAccent:#000000;--cx-border:#FFFFFF;--cx-focus:#FFFF00;--cx-danger:#FFCCCC;}
+:root { --cx-space-xs:4px;--cx-space-sm:8px;--cx-space-md:12px;--cx-space-lg:16px;--cx-space-xl:24px;--cx-space-xxl:32px;--cx-motion:180ms; }
+:focus-visible { outline:3px solid var(--cx-focus); outline-offset:3px; }
+@media (prefers-reduced-motion:reduce) { :root { --cx-motion:0ms; } }
+@media (forced-colors:active) { :focus-visible { outline-color:Highlight; } }

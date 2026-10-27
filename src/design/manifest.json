@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "repository": "corexiumx-design",
+  "revision": "2e77af3fbf92b9c14d82042cffef32d2dd50a6f1",
+  "files": {
+    "src/design/tokens.css": {
+      "source": "tokens/design-tokens.css",
+      "sha256": "441fd7fc507254c9b4d26a6e42c1a241abf62d88598bc0e834b244b511ccc34a"
+    },
+    "src/design/tokens.json": {
+      "source": "tokens/design-tokens.json",
+      "sha256": "3c14f31358a72e5de0bf998a01a4558ed15cd915f41779eb4ddc121a43fab5e2"
+    },
+    "public/brand/corexiumx.png": {
+      "source": "brand/corexiumx.png",
+      "sha256": "4d20ef9057272c2832a6994590b218ffb290cafaec65a214163e64b7bf05c5f3"
+    },
+    "public/brand/corexiumx-icon.png": {
+      "source": "icons/linux/corexiumx-512.png",
+      "sha256": "18a78108137dd8d54f960ad350045d5b0f8c1ad7dcf26b7c4d6d2eb149cf88b6"
+    },
+    "public/favicon.png": {
+      "source": "icons/linux/corexiumx-32.png",
+      "sha256": "a45195e331a41c583ef3e6ce99780276f58a6f155047bfb2420d1efb78c9896a"
+    },
+    "public/favicon.ico": {
+      "source": "icons/windows/corexiumx.ico",
+      "sha256": "9e112078670f5a3b694f12d41101b0b2d6c6e3db159cf22662ffe3d56aafd3e4"
+    }
+  }
+}
