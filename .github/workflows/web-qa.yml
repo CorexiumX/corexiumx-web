@@ -1,4 +1,4 @@
-name: Web QA
+name: Web QA and Pages
 
 on:
   push:
@@ -51,3 +51,34 @@ jobs:
           path: dist/
           if-no-files-found: error
           retention-days: 14
+      - name: Configure GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Build for the GitHub Pages base path
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: pnpm build --base "${{ steps.pages.outputs.base_path }}/"
+      - name: Upload GitHub Pages website
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+  deploy:
+    name: Deploy GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: verify-build-test
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4

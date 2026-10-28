@@ -1,6 +1,6 @@
 # CorexiumX web
 
-Local React/TypeScript/Vite development preview consuming the CorexiumX design package. Browser capabilities are labelled planned and downloads remain unavailable until verified release artifacts exist. This work does not publish a website.
+Local React/TypeScript/Vite development preview consuming the CorexiumX design package. Browser capabilities are labelled planned and downloads remain unavailable until verified release artifacts exist. GitHub Actions publishes this development preview to GitHub Pages after QA passes on `main`.
 
 ## Run
 
@@ -34,6 +34,12 @@ pnpm qa
 
 The suite covers desktop and mobile-sized Chromium, theme colors and reload behavior, artwork/favicon loading, fragment navigation, keyboard skip link/focus, development status, and widths of 320, 390 and 768 pixels. Axe scans all three themes for automatically detectable WCAG A/AA and best-practice violations; additional checks emulate reduced motion and forced colors. Reports include axe JSON results, and failures retain screenshots and traces in ignored output folders.
 
-`.github/workflows/web-qa.yml` runs on pushes, pull requests and manual dispatch. It installs locked dependencies and Chromium with OS dependencies, verifies design assets, builds, then runs the suite. Reports and successful builds are retained for 14 days. No deployment or write access is configured. The remote workflow must run after push before treating Linux CI as verified.
+`.github/workflows/web-qa.yml` runs on pushes, pull requests and manual dispatch. It installs locked dependencies and Chromium with OS dependencies, verifies design assets, builds, then runs the suite. Reports and successful builds are retained for 14 days. On `main`, it then rebuilds with the GitHub Pages base path and deploys through the `github-pages` environment. Only the deployment job has Pages and OIDC write permissions; pull requests never deploy. The remote workflow must run after push before treating Linux CI as verified.
 
 Automated checks are a regression gate, not complete accessibility certification. Manual screen-reader, zoom, native platform and additional browser-engine review remains necessary. Setup follows the official [Playwright CI](https://playwright.dev/docs/ci-intro) and [axe integration](https://playwright.dev/docs/accessibility-testing) guides.
+
+## GitHub Pages deployment
+
+In repository **Settings → Pages**, select **GitHub Actions** as the source. Push this workflow to `main`, or run **Web QA and Pages** manually on `main`. The expected project URL is https://corexiumx.github.io/corexiumx-web/; the deployment environment records the actual URL. The workflow gets the base path from `actions/configure-pages`, including support for a configured custom domain.
+
+To check the project-path build locally, run `pnpm build --base /corexiumx-web/`, then `pnpm preview` and open `/corexiumx-web/`. Run `pnpm build` again before the regular root-path browser suite.
