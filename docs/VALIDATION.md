@@ -26,3 +26,11 @@ Results:
 - Workflow YAML parsed successfully; checked read-only permissions and presence of the browser test gate. `git diff --check` passed.
 
 Reports are generated in `playwright-report/` and `test-results/` (ignored). Axe JSON attachments, screenshots and failure traces are uploaded by CI for 14 days. These automated results do not certify full WCAG conformance or native mobile behavior. Manual screen-reader and zoom review, Firefox/WebKit coverage and Linux CI execution remain outside this local evidence.
+
+## Tailwind redesign — 2026-10-28
+
+The website now uses Tailwind CSS 4 through its Vite plugin, with semantic color utilities referencing the unchanged, verified design tokens. The redesign adds responsive feature cards, three interactive workspace illustrations, grouped roadmap milestones, an explicit release-status panel and keyboard-operated FAQ disclosures. Feature and roadmap content derives from the ecosystem catalog and roadmap; all native browser capabilities remain labelled planned.
+
+The production build and all 32 browser checks passed locally at the root path. The new checks verify exclusive workspace selection, pane changes and live-region text, keyboard-operated FAQs, and no page overflow across all three concepts at widths of 320, 390, 768 and 1280 pixels. Existing checks still cover all three themes, automated axe scans, reduced motion, forced colors, image/favicon loading, navigation and honest release status. Desktop dark/light and mobile full-page screenshots were visually inspected; they are local review artifacts, not website assets.
+
+The GitHub Pages build (`pnpm build --base /corexiumx-web/`) and all 32 checks also passed with `TEST_BASE_PATH=/corexiumx-web/`. Playwright now supports `TEST_BASE_PATH` so the same suite can exercise the GitHub Pages project path. CI also tests the final Pages build before uploading it for deployment. Manual assistive-technology review and additional browser engines remain outside this evidence.

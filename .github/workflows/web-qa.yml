@@ -34,16 +34,6 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Run browser and accessibility checks against the production build
         run: pnpm test:e2e
-      - name: Save test report, axe results and failure traces
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-qa-results
-          path: |
-            playwright-report/
-            test-results/
-          if-no-files-found: ignore
-          retention-days: 14
       - name: Save verified production build
         uses: actions/upload-artifact@v4
         with:
@@ -58,11 +48,26 @@ jobs:
       - name: Build for the GitHub Pages base path
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: pnpm build --base "${{ steps.pages.outputs.base_path }}/"
+      - name: Verify the GitHub Pages production layout and assets
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          TEST_BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+        run: pnpm test:e2e
       - name: Upload GitHub Pages website
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
+      - name: Save test report, axe results and failure traces
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-qa-results
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
 
   deploy:
     name: Deploy GitHub Pages

@@ -1,6 +1,6 @@
 # CorexiumX web
 
-Local React/TypeScript/Vite development preview consuming the CorexiumX design package. Browser capabilities are labelled planned and downloads remain unavailable until verified release artifacts exist. GitHub Actions publishes this development preview to GitHub Pages after QA passes on `main`.
+React/TypeScript/Vite website styled with Tailwind CSS and the CorexiumX semantic theme tokens; a development preview consuming the CorexiumX design package. Browser capabilities are labelled planned and downloads remain unavailable until verified release artifacts exist. GitHub Actions publishes this development preview to GitHub Pages after QA passes on `main`.
 
 ## Run
 
@@ -43,3 +43,16 @@ Automated checks are a regression gate, not complete accessibility certification
 In repository **Settings → Pages**, select **GitHub Actions** as the source. Push this workflow to `main`, or run **Web QA and Pages** manually on `main`. The expected project URL is https://corexiumx.github.io/corexiumx-web/; the deployment environment records the actual URL. The workflow gets the base path from `actions/configure-pages`, including support for a configured custom domain.
 
 To check the project-path build locally, run `pnpm build --base /corexiumx-web/`, then `pnpm preview` and open `/corexiumx-web/`. Run `pnpm build` again before the regular root-path browser suite.
+
+## Website UI
+
+Tailwind CSS is integrated through `@tailwindcss/vite` and imported in `src/index.css`, using the official [Vite integration](https://tailwindcss.com/docs/installation/using-vite). Semantic Tailwind colors map to the pinned `--cx-*` tokens. Use utilities for responsive layout and spacing; `src/App.css` provides the branded artwork, browser illustration and component styling. Vendored design files remain unchanged.
+
+The page includes a product introduction, three planned feature families, Research/Design/Focus workspace illustrations, grouped roadmap milestones, a release-status panel, FAQs and links to source/documentation. Workspace buttons update an illustrative arrangement only; they do not implement browsing or persistent sessions. All three themes, reduced-motion preferences, keyboard focus and native FAQ disclosure controls are supported.
+
+The browser suite accepts `TEST_BASE_PATH` for testing a project-path build. For example:
+
+```sh
+pnpm build --base /corexiumx-web/
+TEST_BASE_PATH=/corexiumx-web/ pnpm test:e2e
+```

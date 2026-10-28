@@ -4,7 +4,7 @@ import tokens from '../../src/design/tokens.json' with { type: 'json' }
 const rgb = (hex: string) => `rgb(${[1, 3, 5].map((offset) => parseInt(hex.slice(offset, offset + 2), 16)).join(', ')})`
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
 })
 
 test('brand artwork and favicon load without runtime errors', async ({ page }) => {
@@ -97,4 +97,42 @@ test('narrow and tablet layouts fit the viewport and retain usable controls', as
     const copy = await page.locator('.hero-copy').boundingBox()
     if (width <= 640) expect(art!.y).toBeGreaterThanOrEqual(copy!.y + copy!.height)
   }
+})
+
+test('workspace concepts switch layouts and announce the selected context', async ({ page }) => {
+  const controls = page.getByRole('group', { name: 'Workspace concepts' })
+  for (const [name, panes] of [['Design', 3], ['Focus', 1], ['Research', 3]] as const) {
+    const button = controls.getByRole('button', { name, exact: true })
+    await button.click()
+    await expect(button).toHaveAttribute('aria-pressed', 'true')
+    await expect(controls.locator('[aria-pressed="true"]')).toHaveCount(1)
+    const preview = page.getByRole('region', { name: `${name} workspace` })
+    await expect(preview.locator('.concept-pane')).toHaveCount(panes)
+    await expect(page.locator('[aria-live="polite"]')).toContainText(`${name}:`)
+  }
+  await controls.getByRole('button', { name: 'Focus', exact: true }).focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByRole('region', { name: 'Focus workspace' })).toBeVisible()
+})
+
+test('FAQ answers open with the keyboard and explain release limitations', async ({ page }) => {
+  const question = page.locator('summary').filter({ hasText: 'Can I use CorexiumX as my browser today?' })
+  await question.focus()
+  await page.keyboard.press('Enter')
+  const answer = page.locator('details[open]')
+  await expect(answer).toContainText('no public browser download available')
+  await page.keyboard.press('Enter')
+  await expect(page.locator('details[open]')).toHaveCount(0)
+})
+
+test('expanded content and concepts remain usable at narrow widths', async ({ page }) => {
+  for (const width of [320, 390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 })
+    for (const name of ['Research', 'Design', 'Focus']) {
+      await page.getByRole('group', { name: 'Workspace concepts' }).getByRole('button', { name, exact: true }).click()
+      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+    }
+  }
+  await page.getByRole('link', { name: 'Roadmap', exact: true }).click()
+  await expect(page.getByRole('heading', { name: 'A clear direction. One careful step at a time.' })).toBeInViewport()
 })
